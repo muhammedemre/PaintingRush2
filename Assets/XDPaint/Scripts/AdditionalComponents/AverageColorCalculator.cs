@@ -57,7 +57,6 @@ namespace XDPaint.AdditionalComponents
 			{
 				UpdateAverageColor();
 			}
-			ColorCheck();
 		}
 
 		#endregion
@@ -116,41 +115,5 @@ namespace XDPaint.AdditionalComponents
 				averageColorMaterial.SetInt(AccuracyParam, accuracy);
 			}
 		}
-
-		// Emre's color % calculation
-		[SerializeField] float successRate, colorCheckFrequency;
-		float nextColorCheck;
-		[SerializeField] Color colorToCompare;
-		[SerializeField] int pixelSize;
-
-        void ColorCheck()
-        {
-            if (nextColorCheck < Time.time)
-            {
-                print("CHECK");
-                nextColorCheck = Time.time + colorCheckFrequency;
-                successRate = SuccessRate();
-            }
-        }
-
-        float SuccessRate()
-        {
-            int selectedColorPixelCount = 0;
-			var resultTexture = PaintManager.GetResultTexture();
-			Color[] pixels = resultTexture.GetPixels();
-            print("PIXEL Count: " + pixels.Length);
-            for (int i = 0; i < pixels.Length-pixelSize; i += pixelSize)
-            {
-                //Debug.Log("pixelColor: " + pixels[i] + " :: compareColor: " + colorToCompare);
-                if (pixels[i].Equals(colorToCompare))
-                {
-                    selectedColorPixelCount++;
-                }
-            }
-            float percentage = (float)selectedColorPixelCount / pixels.Length * 100;
-            return percentage;
-        }
-
-        // Emre's color % calculation //
-    }
+	}
 }

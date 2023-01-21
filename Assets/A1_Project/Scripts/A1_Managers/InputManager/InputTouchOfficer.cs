@@ -13,15 +13,42 @@ public class InputTouchOfficer : InputAbstractOfficer
     {
         if (touchStart)
         {
-            
+            TouchStartProcess(touchPos);
         }
         else if (touchMoved)
         {
-
+            TouchMoveProcess(touchPos);
         }
         else if (touchEnded)
         {
+            TouchEndProcess(touchPos);
+        }
+    }
 
+    void TouchStartProcess(Vector2 touchPos) 
+    {
+        LevelActor currentLevel = LevelManager.instance.levelCreateOfficer.currentLevel.GetComponent<LevelActor>();
+        if (currentLevel.drawImageActor.currentDrawState == DrawImageActor.DrawState.Outlining)
+        {
+            currentLevel.pencilActor.pencilDrawProcessOfficer.StartOutlining();
+        }
+    }
+
+    void TouchMoveProcess(Vector2 touchPos) 
+    {
+        LevelActor currentLevel = LevelManager.instance.levelCreateOfficer.currentLevel.GetComponent<LevelActor>();
+        if (currentLevel.drawImageActor.currentDrawState == DrawImageActor.DrawState.Outlining)
+        {
+            currentLevel.pencilActor.pencilDrawProcessOfficer.DrawOutline();
+        }
+    }
+
+    void TouchEndProcess(Vector2 touchPos) 
+    {
+        LevelActor currentLevel = LevelManager.instance.levelCreateOfficer.currentLevel.GetComponent<LevelActor>();
+        if (currentLevel.drawImageActor.currentDrawState == DrawImageActor.DrawState.Outlining)
+        {
+            currentLevel.pencilActor.pencilDrawProcessOfficer.StopOutlining();
         }
     }
 }

@@ -32,7 +32,11 @@ public class LevelPreparationOfficer : MonoBehaviour
         GameObject drawImagePrefab = Resources.Load<GameObject>(imagePath);
         GameObject tempDrawImage = Instantiate(drawImagePrefab, transform);
         levelActor.drawImageActor = tempDrawImage.GetComponent<DrawImageActor>();
+        tempDrawImage.GetComponent<DrawImageActor>().levelActor = levelActor;
 
         levelActor.drawImageActor.ActivateNextPathStep();
+
+        Vector3 penPosition = levelActor.drawImageActor.GetActivePathBeginningPosition();
+        levelActor.pencilActor.pencilDrawProcessOfficer.PositionThePen(penPosition, levelActor.pencilActor.pencilDrawProcessOfficer.positioningDuration, true);
     }
 }

@@ -886,7 +886,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  touchable: 0
+  touchable: 1
   isFixedUpdate: 0
   UILayer: 0
 --- !u!114 &1851279014

@@ -7,7 +7,7 @@
     {
         SingletonCheck();
     }
-    
+
     void SingletonCheck()
     {
         if (instance != null)
@@ -23,3 +23,5 @@
     }
 
 }
+
+

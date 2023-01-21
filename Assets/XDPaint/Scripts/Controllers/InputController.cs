@@ -23,6 +23,10 @@ namespace XDPaint.Controllers
 {
 	public class InputController : Singleton<InputController>
 	{
+		// Emre
+		[SerializeField] bool outlining = false;
+		// Emre //
+
 		[Header("Ignore Raycasts Settings")]
 		[SerializeField] private Canvas canvas;
 		[SerializeField] private GameObject[] ignoreForRaycasts;
@@ -125,7 +129,7 @@ namespace XDPaint.Controllers
 			}
 			else
 			{
-				//Pen / Touch / Mouse
+                //Pen / Touch / Mouse
 #if ENABLE_INPUT_SYSTEM
 				if (Pen.current != null && (Pen.current.press.isPressed || Pen.current.press.wasReleasedThisFrame))
 				{
@@ -204,7 +208,8 @@ namespace XDPaint.Controllers
 					}
 				}
 #elif ENABLE_LEGACY_INPUT_MANAGER
-				//Touch / Mouse
+                //Touch / Mouse
+
 				if (Input.touchSupported && Input.touchCount > 0 && !isWebgl)
 				{
 					foreach (var touch in Input.touches)
@@ -247,7 +252,10 @@ namespace XDPaint.Controllers
 
 					if (Input.GetMouseButton(0))
 					{
-						OnMouseButton?.Invoke(Input.mousePosition, 1f);
+                        if (!outlining)
+                        {
+							OnMouseButton?.Invoke(Input.mousePosition, 1f);
+						}						
 					}
 
 					if (Input.GetMouseButtonUp(0))
@@ -257,6 +265,16 @@ namespace XDPaint.Controllers
 				}
 #endif
 			}
+		}
+		public void DrawWithoutInput(Vector2 position)
+		{		
+			print("DRAWING");
+			OnMouseButton?.Invoke(position, 1);
+		}
+
+		public void EnableOutlining(bool state) 
+		{
+			outlining = state;
 		}
 	}
 }
