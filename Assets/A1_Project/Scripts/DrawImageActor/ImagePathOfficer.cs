@@ -37,10 +37,6 @@ public class ImagePathOfficer : MonoBehaviour
         }
     }
 
-    public PathCreator GetFailPath(int index) 
-    {
-        return failPath[index];
-    }
 
     void DeletePaths()
     {

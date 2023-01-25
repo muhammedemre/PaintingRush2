@@ -22,6 +22,8 @@ public class DrawImageActor : MonoBehaviour
     public float acceptedSuccessRate;
     public PaintManager paintManagerOutline;
 
+    [SerializeField] Transform xPoint, nodePoint;
+
     private void Start()
     {
         paintManagerOutline.ObjectForPainting = currentOutlineCanvas;
@@ -95,7 +97,37 @@ public class DrawImageActor : MonoBehaviour
     {
         PathCreator path = activePath.GetComponent<PathCreator>();
         Vector3 beginningPos = path.path.GetPointAtDistance(0, EndOfPathInstruction.Stop);
+        PlaceXPointAtTheBeginningOfThePath(beginningPos);
         return beginningPos;
+    }
+
+    public Vector3 GetActivePathEndPosition() 
+    {
+        PathCreator path = activePath.GetComponent<PathCreator>();
+        Vector3 endPos = path.path.GetPointAtDistance(path.path.length, EndOfPathInstruction.Stop);
+        return endPos;
+    }
+
+    void PlaceXPointAtTheBeginningOfThePath(Vector3 xPos) 
+    {
+        XPosStateChange(true);
+        xPoint.position = xPos;
+    }
+
+    public void XPosStateChange(bool state) 
+    {
+        if (xPoint.gameObject.activeSelf != state)
+        {
+            xPoint.gameObject.SetActive(state);
+        }       
+    }
+
+    public IEnumerator NodePointPop() 
+    {
+        nodePoint.gameObject.SetActive(true);
+        nodePoint.position = GetActivePathEndPosition();
+        yield return new WaitForSeconds(0.1f);
+        nodePoint.gameObject.SetActive(false);
     }
 
     public void DeactivateAll(Transform itemContainer)

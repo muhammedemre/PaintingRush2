@@ -68,6 +68,7 @@ public class PencilDrawProcessOfficer : MonoBehaviour
         }
 
         pathOutlinedDistance += pencilMoveSpeed * Time.deltaTime;
+        pencilActor.relatedLevelActor.drawImageActor.XPosStateChange(false);
 
         if (pencilActor.relatedLevelActor.drawImageActor.activePath.path.length > pathOutlinedDistance)
         {
@@ -77,7 +78,7 @@ public class PencilDrawProcessOfficer : MonoBehaviour
         {
             pathOutlinedDistance = 0;
             failDrawing = true;
-            //pencilActor.relatedLevelActor.drawImageActor.ActivateFailCanvas();
+            StartCoroutine(pencilActor.relatedLevelActor.drawImageActor.NodePointPop());
             // outline draw is just finished
         }
         if (failDrawing)
