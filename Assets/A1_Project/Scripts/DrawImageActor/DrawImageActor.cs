@@ -3,23 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using PathCreation;
 using XDPaint.Controllers;
+using XDPaint;
 
 public class DrawImageActor : MonoBehaviour
 {
     public LevelActor levelActor;
     public ImagePathOfficer imagePathOfficer;
-    int imageCompleteIndex = -1;
+    public int imageCompleteIndex = -1;
     public Transform imagePartsContainer, outlinesContainer;
     public PathCreator activePath;
 
     public DrawState currentDrawState;
+
+    [SerializeField] GameObject canvasOutlinePrefab;
+    [SerializeField] GameObject currentOutlineCanvas;
+    [SerializeField] float brushSizeForPaint;
+    public GameObject currentImagePart;
+    public float acceptedSuccessRate;
+    public PaintManager paintManagerOutline;
+
+    private void Start()
+    {
+        paintManagerOutline.ObjectForPainting = currentOutlineCanvas;
+        paintManagerOutline.Init();
+    }
 
     public enum DrawState
     {
         Coloring, Outlining, Completed
     }
 
-    public void ActivateNextPathStep() 
+    public void ActivateNextPathAndImagePartStep() 
     {
         imageCompleteIndex++;
 
@@ -46,20 +60,35 @@ public class DrawImageActor : MonoBehaviour
 
     void ActivatePath() 
     {
-        DeactivateAll(imagePathOfficer.pathContainer);
-        DeactivateAll(outlinesContainer);
+        //DeactivateAll(imagePathOfficer.pathContainer);
         activePath = imagePathOfficer.pathContainer.GetChild(imageCompleteIndex).GetComponent<PathCreator>();
-        activePath.gameObject.SetActive(true);
-
-        GameObject drawOutline = outlinesContainer.GetChild(imageCompleteIndex).gameObject;
-        levelActor.paintManager.ObjectForPainting = drawOutline;
-        drawOutline.SetActive(true);
-
+        //activePath.gameObject.SetActive(true);
+        levelActor.pencilActor.pencilDrawProcessOfficer.StartNewPath();
+        GetActivePathBeginningPosition();
     }
+
     void ActivateImagePart() 
     {
-        DeactivateAll(imagePartsContainer);
-        imagePartsContainer.GetChild(imageCompleteIndex).gameObject.SetActive(true);
+        int index = imageCompleteIndex - imagePathOfficer.pathContainer.childCount;
+        if (index == 0)
+        {
+            GetReadyForPainting();
+        }
+        //levelActor.paintManagerPaint.gameObject.SetActive(true);
+        currentImagePart = imagePartsContainer.GetChild(index).gameObject;
+        currentImagePart.transform.GetChild(0).GetComponent<PaintManager>().ObjectForPainting = currentImagePart;
+        currentImagePart.transform.GetChild(0).GetComponent<PaintManager>().Init();
+    }
+
+    void GetReadyForPainting() 
+    {
+        DeactivateAll(imagePathOfficer.pathContainer);
+        paintManagerOutline.gameObject.SetActive(false);
+        foreach (Transform imagePart in imagePartsContainer)
+        {
+            imagePart.gameObject.SetActive(true);
+        }
+        levelActor.paintController.Brush.Size = brushSizeForPaint;
     }
 
     public Vector3 GetActivePathBeginningPosition() 
@@ -69,11 +98,17 @@ public class DrawImageActor : MonoBehaviour
         return beginningPos;
     }
 
-    void DeactivateAll(Transform itemContainer) 
+    public void DeactivateAll(Transform itemContainer)
     {
         foreach (Transform item in itemContainer)
         {
             item.gameObject.SetActive(false);
         }
     }
+
+    public void CompletedOutlinePart()
+    {
+        ActivateNextPathAndImagePartStep();
+    }
+
 }

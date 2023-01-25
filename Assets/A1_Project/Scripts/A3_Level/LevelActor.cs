@@ -11,7 +11,6 @@ public class LevelActor : MonoBehaviour
     public LevelPreparationOfficer levelPreparationOfficer;
     public LevelCollectedPointsOfficer levelCollectedPointsOfficer;
     public DrawImageActor drawImageActor;
-    public PaintManager paintManager;
     public PaintController paintController;
     public PencilActor pencilActor;
 

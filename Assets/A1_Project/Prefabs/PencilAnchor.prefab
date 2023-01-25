@@ -282,7 +282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   relatedLevelActor: {fileID: 0}
   pencilModelOfficer: {fileID: 7038901585941403779}
-  pencilDrawProcessOfficer: {fileID: 0}
+  pencilDrawProcessOfficer: {fileID: 5412804057015386379}
 --- !u!114 &7038901585941403779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,6 +310,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pencilActor: {fileID: 7038901585941403776}
   pencilModelContainerXPosAtTheBeginning: 0
-  pencilMoveSpeed: 1
+  pencilMoveSpeed: 3
   positioningDuration: 0.2
   canOutline: 0

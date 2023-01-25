@@ -268,7 +268,7 @@ namespace XDPaint.Controllers
 		}
 		public void DrawWithoutInput(Vector2 position)
 		{		
-			print("DRAWING");
+			//print("DRAWING");
 			OnMouseButton?.Invoke(position, 1);
 		}
 

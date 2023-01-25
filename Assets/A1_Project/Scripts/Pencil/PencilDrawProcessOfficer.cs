@@ -7,9 +7,10 @@ using XDPaint.Controllers;
 public class PencilDrawProcessOfficer : MonoBehaviour
 {
     [SerializeField] PencilActor pencilActor;
-    [SerializeField] float pencilModelContainerXPosAtTheBeginning, pencilMoveSpeed;
+    public float pencilModelContainerXPosAtTheBeginning, pencilMoveSpeed;
     public float positioningDuration;
-    [SerializeField] bool canOutline = false;
+    [SerializeField] bool canOutline = false, failDrawing = false;
+    [SerializeField] float successTolerance;
 
     float pathOutlinedDistance;
 
@@ -37,31 +38,108 @@ public class PencilDrawProcessOfficer : MonoBehaviour
 
     public void StartOutlining() 
     {
-        pencilActor.pencilModelOfficer.modelContainer.DOLocalMoveX(pencilModelContainerXPosAtTheBeginning, positioningDuration).OnUpdate(CheckPosition);//.SetDelay(0f).OnComplete(()=> canOutline = true);
+        pencilActor.pencilModelOfficer.modelContainer.DOLocalMoveX(pencilModelContainerXPosAtTheBeginning, positioningDuration).SetDelay(0f).OnComplete(() => canOutline = true);//.OnUpdate(CheckPosition);//;
     }
 
-    void CheckPosition() 
-    {
-        if (pencilActor.pencilModelOfficer.modelContainer.localPosition.x == pencilModelContainerXPosAtTheBeginning)
-        {
-            if (!canOutline)
-            {
-                canOutline = true;
-            }          
-        }
-    }
 
     public void StopOutlining() 
     {
         canOutline = false;
-        pencilActor.pencilModelOfficer.modelContainer.DOLocalMoveX(2.4f, positioningDuration);
+        
+        if (failDrawing)// if finished
+        {
+            pencilActor.relatedLevelActor.drawImageActor.CompletedOutlinePart();
+            if (pencilActor.relatedLevelActor.drawImageActor.currentDrawState == DrawImageActor.DrawState.Outlining)
+            {
+                PositionThePen(pencilActor.relatedLevelActor.drawImageActor.GetActivePathBeginningPosition(), positioningDuration, true);
+            }           
+        }
+        else
+        {
+            pencilActor.pencilModelOfficer.modelContainer.DOLocalMoveX(2.4f, positioningDuration);
+        }
     }
 
     public void DrawOutline() 
     {
+        if (!canOutline)
+        {
+            return;
+        }
+
         pathOutlinedDistance += pencilMoveSpeed * Time.deltaTime;
-        transform.position = pencilActor.relatedLevelActor.drawImageActor.activePath.path.GetPointAtDistance(pathOutlinedDistance, PathCreation.EndOfPathInstruction.Stop);
+
+        if (pencilActor.relatedLevelActor.drawImageActor.activePath.path.length > pathOutlinedDistance)
+        {
+            transform.position = pencilActor.relatedLevelActor.drawImageActor.activePath.path.GetPointAtDistance(pathOutlinedDistance, PathCreation.EndOfPathInstruction.Stop);
+        }
+        else if (pencilActor.relatedLevelActor.drawImageActor.activePath.path.length < pathOutlinedDistance + 1)
+        {
+            pathOutlinedDistance = 0;
+            failDrawing = true;
+            //pencilActor.relatedLevelActor.drawImageActor.ActivateFailCanvas();
+            // outline draw is just finished
+        }
+        if (failDrawing)
+        {          
+            FinishedButPlayerKeepsDrawing();
+        }
+        
         Vector2 normalizedPosition = Camera.main.WorldToScreenPoint(transform.position);
         InputController.Instance.DrawWithoutInput(normalizedPosition);
+    }
+
+    public void StartColoring(Vector2 touchPos) 
+    {
+        Vector3 newPos = Camera.main.ScreenToWorldPoint(touchPos);
+        newPos = new Vector3(newPos.x, newPos.y, 10f);
+        transform.position = newPos;    
+    }
+
+    public void StopColoring(Vector2 touchPos) 
+    {
+        
+    }
+
+    public void Coloring(Vector2 touchPos) 
+    {
+        Vector3 newTouchPos = new Vector3(touchPos.x, touchPos.y, 10f);
+        Vector3 newPos = Camera.main.ScreenToWorldPoint(newTouchPos);
+        //print("COLORING2: " + touchPos + " newPos: " + newPos);
+        transform.position = newPos;
+        GridVisit(touchPos);
+    }
+
+    void FinishedButPlayerKeepsDrawing() 
+    {
+        transform.position = pencilActor.relatedLevelActor.drawImageActor.imagePathOfficer.
+            failPath[pencilActor.relatedLevelActor.drawImageActor.imageCompleteIndex].path.GetPointAtDistance(pathOutlinedDistance, PathCreation.EndOfPathInstruction.Stop);
+    }
+
+    public void StartNewPath() 
+    {
+        pathOutlinedDistance = 0;
+        failDrawing = false;
+    }
+
+    void GridVisit(Vector2 touchPos) 
+    {
+        Vector3 newTouchPos = new Vector3(touchPos.x, touchPos.y, 10f);
+        Vector2 drawPos = Camera.main.ScreenToWorldPoint(newTouchPos);
+        RaycastHit2D[] hits;
+        hits = Physics2D.RaycastAll(drawPos, Vector2.zero, 100.0F);
+        Debug.DrawRay(drawPos, Vector2.zero * 100f, Color.red);
+        string partName = pencilActor.relatedLevelActor.drawImageActor.currentImagePart.name;
+        foreach (RaycastHit2D hit in hits)
+        {
+            if(hit.transform.GetComponent<GridObjectActor>())
+            {
+                if (hit.transform.name.Contains(partName))
+                {
+                    
+                    hit.transform.GetComponent<GridObjectActor>().IAmVisited();
+                }
+            }             
+        }
     }
 }

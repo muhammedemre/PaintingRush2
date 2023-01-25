@@ -32,6 +32,10 @@ public class InputTouchOfficer : InputAbstractOfficer
         {
             currentLevel.pencilActor.pencilDrawProcessOfficer.StartOutlining();
         }
+        else if (currentLevel.drawImageActor.currentDrawState == DrawImageActor.DrawState.Coloring)
+        {
+            currentLevel.pencilActor.pencilDrawProcessOfficer.StartColoring(touchPos);
+        }
     }
 
     void TouchMoveProcess(Vector2 touchPos) 
@@ -41,6 +45,10 @@ public class InputTouchOfficer : InputAbstractOfficer
         {
             currentLevel.pencilActor.pencilDrawProcessOfficer.DrawOutline();
         }
+        else if (currentLevel.drawImageActor.currentDrawState == DrawImageActor.DrawState.Coloring)
+        {
+            currentLevel.pencilActor.pencilDrawProcessOfficer.Coloring(touchPos);
+        }
     }
 
     void TouchEndProcess(Vector2 touchPos) 
@@ -49,6 +57,10 @@ public class InputTouchOfficer : InputAbstractOfficer
         if (currentLevel.drawImageActor.currentDrawState == DrawImageActor.DrawState.Outlining)
         {
             currentLevel.pencilActor.pencilDrawProcessOfficer.StopOutlining();
+        }
+        else if (currentLevel.drawImageActor.currentDrawState == DrawImageActor.DrawState.Coloring)
+        {
+            currentLevel.pencilActor.pencilDrawProcessOfficer.StopColoring(touchPos);
         }
     }
 }

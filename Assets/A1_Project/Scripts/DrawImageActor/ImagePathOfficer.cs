@@ -9,6 +9,7 @@ public class ImagePathOfficer : MonoBehaviour
     public Transform pathContainer;
     [SerializeField] float spacing, minSpacing;
     [SerializeField] GameObject pathPointPrefab;
+    public  List<PathCreator> failPath = new List<PathCreator>();
 
     void DrawAllPaths()
     {
@@ -34,6 +35,11 @@ public class ImagePathOfficer : MonoBehaviour
             Instantiate(pathPointPrefab, point, rot, pathObject.transform);
             dst += spacing;
         }
+    }
+
+    public PathCreator GetFailPath(int index) 
+    {
+        return failPath[index];
     }
 
     void DeletePaths()
