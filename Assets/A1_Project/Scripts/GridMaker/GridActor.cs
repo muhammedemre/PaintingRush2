@@ -55,8 +55,19 @@ public class GridActor : MonoBehaviour
         DrawImageActor drawImageActor = LevelManager.instance.levelCreateOfficer.currentLevel.GetComponent<LevelActor>().drawImageActor;
         if (completeRatio > drawImageActor.acceptedSuccessRate)
         {
-            drawImageActor.ActivateNextPathAndImagePartStep();
+            SuccessfulyPainted(drawImageActor);
         }
+    }
+
+    void SuccessfulyPainted(DrawImageActor _drawImageActor) 
+    {
+        FullyPaintTheImagePart();
+        _drawImageActor.ActivateNextPathAndImagePartStep();
+    }
+
+    void FullyPaintTheImagePart() 
+    {
+    
     }
 
     [Button("CraeteGrids")]

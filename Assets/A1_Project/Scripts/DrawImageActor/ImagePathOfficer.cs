@@ -9,7 +9,7 @@ public class ImagePathOfficer : MonoBehaviour
     public Transform pathContainer;
     [SerializeField] float spacing, minSpacing;
     [SerializeField] GameObject pathPointPrefab;
-    public  List<PathCreator> failPath = new List<PathCreator>();
+    public  Transform failPathContainer;
 
     void DrawAllPaths()
     {

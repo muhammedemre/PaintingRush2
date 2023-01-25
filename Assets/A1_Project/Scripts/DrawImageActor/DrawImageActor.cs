@@ -62,9 +62,7 @@ public class DrawImageActor : MonoBehaviour
 
     void ActivatePath() 
     {
-        //DeactivateAll(imagePathOfficer.pathContainer);
         activePath = imagePathOfficer.pathContainer.GetChild(imageCompleteIndex).GetComponent<PathCreator>();
-        //activePath.gameObject.SetActive(true);
         levelActor.pencilActor.pencilDrawProcessOfficer.StartNewPath();
         GetActivePathBeginningPosition();
     }
@@ -76,10 +74,28 @@ public class DrawImageActor : MonoBehaviour
         {
             GetReadyForPainting();
         }
-        //levelActor.paintManagerPaint.gameObject.SetActive(true);
+        else if (index >= imagePartsContainer.childCount)
+        {
+            ImageIsCompleted();
+            return;
+        }
         currentImagePart = imagePartsContainer.GetChild(index).gameObject;
         currentImagePart.transform.GetChild(0).GetComponent<PaintManager>().ObjectForPainting = currentImagePart;
         currentImagePart.transform.GetChild(0).GetComponent<PaintManager>().Init();
+        DeactivateAllRequireds();
+        currentImagePart.GetComponent<SpriteMask>().enabled = true;
+        currentImagePart.GetComponent<ImagePartActor>().ActivateAndDeactivateTaraliAlan(true);
+        currentImagePart.GetComponent<ImagePartActor>().ActivateAndDeactivatePaintManager(true);
+    }
+
+    void DeactivateAllRequireds() 
+    {
+        foreach (Transform imagePart in imagePartsContainer)
+        {
+            imagePart.GetComponent<SpriteMask>().enabled = false;
+            imagePart.GetComponent<ImagePartActor>().ActivateAndDeactivateTaraliAlan(false);
+            imagePart.GetComponent<ImagePartActor>().ActivateAndDeactivatePaintManager(false);
+        }
     }
 
     void GetReadyForPainting() 
@@ -143,4 +159,8 @@ public class DrawImageActor : MonoBehaviour
         ActivateNextPathAndImagePartStep();
     }
 
+    public void ImageIsCompleted() 
+    {
+        currentDrawState = DrawState.Completed;
+    }
 }

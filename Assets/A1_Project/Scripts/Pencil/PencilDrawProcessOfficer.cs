@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using XDPaint.Controllers;
+using PathCreation;
 
 public class PencilDrawProcessOfficer : MonoBehaviour
 {
@@ -68,17 +69,17 @@ public class PencilDrawProcessOfficer : MonoBehaviour
         }
 
         pathOutlinedDistance += pencilMoveSpeed * Time.deltaTime;
-        pencilActor.relatedLevelActor.drawImageActor.XPosStateChange(false);
+        pencilActor.relatedLevelActor.drawImageActor.XPosStateChange(false); // bu anime edilecek
 
         if (pencilActor.relatedLevelActor.drawImageActor.activePath.path.length > pathOutlinedDistance)
         {
             transform.position = pencilActor.relatedLevelActor.drawImageActor.activePath.path.GetPointAtDistance(pathOutlinedDistance, PathCreation.EndOfPathInstruction.Stop);
         }
-        else if (pencilActor.relatedLevelActor.drawImageActor.activePath.path.length < pathOutlinedDistance + 1)
+        else if (pencilActor.relatedLevelActor.drawImageActor.activePath.path.length < pathOutlinedDistance + 1 && !failDrawing)
         {
             pathOutlinedDistance = 0;
             failDrawing = true;
-            StartCoroutine(pencilActor.relatedLevelActor.drawImageActor.NodePointPop());
+            StartCoroutine(pencilActor.relatedLevelActor.drawImageActor.NodePointPop()); // NodePoint kalkacak, animasyon gelecek
             // outline draw is just finished
         }
         if (failDrawing)
@@ -94,7 +95,8 @@ public class PencilDrawProcessOfficer : MonoBehaviour
     {
         Vector3 newPos = Camera.main.ScreenToWorldPoint(touchPos);
         newPos = new Vector3(newPos.x, newPos.y, 10f);
-        transform.position = newPos;    
+        transform.position = newPos;
+        //pencilActor.relatedLevelActor.drawImageActor.currentImagePart.GetComponent<ImagePartActor>().ActivateAndDeactivateTaraliAlan(false);
     }
 
     public void StopColoring(Vector2 touchPos) 
@@ -111,10 +113,10 @@ public class PencilDrawProcessOfficer : MonoBehaviour
         GridVisit(touchPos);
     }
 
-    void FinishedButPlayerKeepsDrawing() 
+    void FinishedButPlayerKeepsDrawing()
     {
         transform.position = pencilActor.relatedLevelActor.drawImageActor.imagePathOfficer.
-            failPath[pencilActor.relatedLevelActor.drawImageActor.imageCompleteIndex].path.GetPointAtDistance(pathOutlinedDistance, PathCreation.EndOfPathInstruction.Stop);
+            failPathContainer.GetChild(pencilActor.relatedLevelActor.drawImageActor.imageCompleteIndex).GetComponent<PathCreator>().path.GetPointAtDistance(pathOutlinedDistance, PathCreation.EndOfPathInstruction.Stop);
     }
 
     public void StartNewPath() 
@@ -143,4 +145,5 @@ public class PencilDrawProcessOfficer : MonoBehaviour
             }             
         }
     }
+
 }
