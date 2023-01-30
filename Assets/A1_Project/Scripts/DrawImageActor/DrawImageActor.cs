@@ -23,6 +23,7 @@ public class DrawImageActor : MonoBehaviour
     public PaintManager paintManagerOutline;
 
     [SerializeField] Transform xPoint, nodePoint;
+    public Sprite imagePreview;
 
     private void Start()
     {
@@ -32,11 +33,12 @@ public class DrawImageActor : MonoBehaviour
 
     public enum DrawState
     {
-        Coloring, Outlining, Completed
+        NotStarted, Coloring, Outlining, Completed
     }
 
     public void ActivateNextPathAndImagePartStep() 
     {
+        FullyPaintIfNeeded();
         imageCompleteIndex++;
 
         currentDrawState = imageCompleteIndex >= imagePathOfficer.pathContainer.childCount ? DrawState.Coloring : DrawState.Outlining;
@@ -58,6 +60,14 @@ public class DrawImageActor : MonoBehaviour
             ActivateImagePart();
         }
         
+    }
+
+    void FullyPaintIfNeeded() 
+    {
+        if (currentDrawState == DrawState.Coloring)
+        {
+            currentImagePart.GetComponent<ImagePartActor>().FullyPaint();
+        }
     }
 
     void ActivatePath() 
@@ -86,6 +96,19 @@ public class DrawImageActor : MonoBehaviour
         currentImagePart.GetComponent<SpriteMask>().enabled = true;
         currentImagePart.GetComponent<ImagePartActor>().ActivateAndDeactivateTaraliAlan(true);
         currentImagePart.GetComponent<ImagePartActor>().ActivateAndDeactivatePaintManager(true);
+        AssignThePartColors(currentImagePart.GetComponent<ImagePartActor>());
+    }
+
+    void AssignThePartColors(ImagePartActor _currentImagePartActor) 
+    {
+        List<Color> allColors = new List<Color>();
+        allColors.Add(_currentImagePartActor.partColor);
+        foreach (Color fakeColor in _currentImagePartActor.fakeColors)
+        {
+            allColors.Add(fakeColor);
+        }
+        ShuffleList.Shuffle(allColors);
+        UIManager.instance.uICanvasOfficer.colorPaletteActor.AssignColors(allColors);
     }
 
     void DeactivateAllRequireds() 
@@ -162,5 +185,21 @@ public class DrawImageActor : MonoBehaviour
     public void ImageIsCompleted() 
     {
         currentDrawState = DrawState.Completed;
+    }
+}
+
+public static class ShuffleList
+{
+    public static void Shuffle<T>(List<T> list)
+    {
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = Random.Range(0, n + 1);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
     }
 }

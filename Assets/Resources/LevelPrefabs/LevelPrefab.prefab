@@ -345,15 +345,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114925808778284472, guid: c9bfee2e8f75c40958f6044f48d52409, type: 3}
       propertyPath: brush.color.b
-      value: 0.16666657
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114925808778284472, guid: c9bfee2e8f75c40958f6044f48d52409, type: 3}
       propertyPath: brush.color.g
-      value: 0.16666657
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114925808778284472, guid: c9bfee2e8f75c40958f6044f48d52409, type: 3}
       propertyPath: brush.color.r
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114925808778284472, guid: c9bfee2e8f75c40958f6044f48d52409, type: 3}
       propertyPath: paintModeType

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GridGround
   - Detector
+  - NoPaintUI
   layers:
   - Default
   - TransparentFX

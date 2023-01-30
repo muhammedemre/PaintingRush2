@@ -24,7 +24,7 @@ public class GetInputOfficer : SerializedMonoBehaviour
     
     private void Update()
     {
-        if (!isFixedUpdate && touchable)
+        if (!isFixedUpdate && touchable && !CheckOnUIClick())
         {
             InputControl(); 
         }
@@ -99,6 +99,34 @@ public class GetInputOfficer : SerializedMonoBehaviour
     void InputManagerInjector(bool touchStart, bool touchMoved, bool touchEnded, Vector2 touchPos)
     {
         InputTouch(touchStart, touchMoved, touchEnded, touchPos);
+    }
+
+    bool CheckOnUIClick()
+    {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            if (IsPointerOverUIObject())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static bool IsPointerOverUIObject()
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        foreach (RaycastResult result in results)
+        {
+            if (result.gameObject.tag == "NoPaintUI")
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

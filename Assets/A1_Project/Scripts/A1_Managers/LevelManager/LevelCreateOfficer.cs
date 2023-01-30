@@ -7,7 +7,21 @@ public class LevelCreateOfficer : MonoBehaviour
     [SerializeField] private GameObject levelContainer;
     public GameObject currentLevel;
 
-    int levelCounter = 0;
+    [SerializeField] int levelCounter = 0;
+
+    public int LevelCounter
+    {
+        get
+        {
+            return levelCounter;
+        }
+        set
+        {
+            levelCounter = value;
+            levelCounter = levelCounter % LevelManager.instance.levelAmount;
+            levelCounter = levelCounter == 0 ? 1 : levelCounter;
+        }
+    }
 
     public void CreateLevelProcess()
     {

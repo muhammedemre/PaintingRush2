@@ -5,9 +5,49 @@ using UnityEngine.SceneManagement;
 
 public class UITaskOfficers : MonoBehaviour
 {
-    
-    public void ReplayButton()
+
+    public void SettingsOpen()
     {
-        SceneManager.LoadScene(0);
+        UIManager.instance.uICanvasOfficer.settingsActor.PlayOpen();
+    }
+
+    public void SettingsClose()
+    {
+        UIManager.instance.uICanvasOfficer.settingsActor.PlayClose();
+    }
+
+    public void AdminCheatNextLevel(bool next)
+    {
+        if (next)
+        {
+            LevelManager.instance.levelMoveOfficer.GoNextLevel();
+        }
+        else
+        {
+            LevelManager.instance.levelMoveOfficer.GoPreviousLevel();
+        }
+    }
+
+    public void NextButton()
+    {
+        LevelManager.instance.levelMoveOfficer.GoNextLevel();
+        UIManager.instance.uICanvasOfficer.nextButton.SetActive(false);
+    }
+
+    public void BGmusicStateChange()
+    {
+        AudioManager.instance.ChangeMusicState();
+        DataManager.instance.DataSaveAndLoadOfficer.SaveTheData();
+    }
+    public void SFXStateChange()
+    {
+        AudioManager.instance.ChangeSFXState();
+        DataManager.instance.DataSaveAndLoadOfficer.SaveTheData();
+    }
+
+    public void VibrationButton()
+    {
+        VibrationManager.instance.ChangeVibrationState();
+        DataManager.instance.DataSaveAndLoadOfficer.SaveTheData();
     }
 }
