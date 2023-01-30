@@ -60,14 +60,8 @@ public class GridActor : MonoBehaviour
     }
 
     void SuccessfulyPainted(DrawImageActor _drawImageActor) 
-    {
-        FullyPaintTheImagePart();
-        _drawImageActor.ActivateNextPathAndImagePartStep();
-    }
-
-    void FullyPaintTheImagePart() 
-    {
-    
+    {       
+        UIManager.instance.uICanvasOfficer.EnableAndDisableFullyPaintButton(true);
     }
 
     [Button("CraeteGrids")]

@@ -23,10 +23,9 @@ public class UIManager : Manager
         instance = this;
     }
 
-    public override void GameStartProcess()
+    public override void PreGameStartProcess()
     {
-        //ActivateInGameScreen();
-        //StartCoroutine(AfterSplashVideo());
+        uICanvasOfficer.DisplaySplashScreen();
     }
 
     //public void ActivateInGameScreen()

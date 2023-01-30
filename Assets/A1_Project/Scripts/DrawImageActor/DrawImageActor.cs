@@ -38,18 +38,12 @@ public class DrawImageActor : MonoBehaviour
 
     public void ActivateNextPathAndImagePartStep() 
     {
-        FullyPaintIfNeeded();
+        //FullyPaintIfNeeded();
         imageCompleteIndex++;
 
         currentDrawState = imageCompleteIndex >= imagePathOfficer.pathContainer.childCount ? DrawState.Coloring : DrawState.Outlining;
-        if (currentDrawState == DrawState.Outlining)
-        {
-            InputController.Instance.EnableOutlining(true);
-        }
-        else
-        {
-            InputController.Instance.EnableOutlining(false);
-        }
+
+        InputController.Instance.EnableOutlining((currentDrawState == DrawState.Outlining)? true : false);
 
         if (currentDrawState == DrawState.Outlining)
         {
@@ -62,12 +56,17 @@ public class DrawImageActor : MonoBehaviour
         
     }
 
-    void FullyPaintIfNeeded() 
+    public void FullyPaintIfNeeded() 
     {
         if (currentDrawState == DrawState.Coloring)
         {
             currentImagePart.GetComponent<ImagePartActor>().FullyPaint();
         }
+    }
+
+    public void CleanTheCurrentImagePart() 
+    {
+        currentImagePart.GetComponent<ImagePartActor>().CleanThePaint();
     }
 
     void ActivatePath() 
@@ -123,6 +122,7 @@ public class DrawImageActor : MonoBehaviour
 
     void GetReadyForPainting() 
     {
+        UIManager.instance.uICanvasOfficer.EnableAndDisableColoringScreen(true);
         DeactivateAll(imagePathOfficer.pathContainer);
         paintManagerOutline.gameObject.SetActive(false);
         foreach (Transform imagePart in imagePartsContainer)
@@ -185,6 +185,7 @@ public class DrawImageActor : MonoBehaviour
     public void ImageIsCompleted() 
     {
         currentDrawState = DrawState.Completed;
+        UIManager.instance.uICanvasOfficer.EnableAndDisableColoringScreen(false);
     }
 }
 

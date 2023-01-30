@@ -9,6 +9,7 @@ public class UICanvasOfficer : MonoBehaviour
     public GameObject inGameScreen, nextButton, bgMusicButton, soundButton, vibrationButton;
     public float splashScreenDuration;
     public ColorPaletteActor colorPaletteActor;
+    public GameObject fullyPaintButton, coloringScreen;
 
 
     public void DisplaySplashScreen()
@@ -27,5 +28,15 @@ public class UICanvasOfficer : MonoBehaviour
     {
         splashScreenActor.gameObject.SetActive(false);
         inGameScreen.SetActive(true);
+    }
+
+    public void EnableAndDisableFullyPaintButton(bool state) 
+    {
+        fullyPaintButton.SetActive(state);
+    }
+
+    public void EnableAndDisableColoringScreen(bool state) 
+    {
+        coloringScreen.SetActive(state);
     }
 }

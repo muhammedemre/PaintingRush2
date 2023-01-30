@@ -22,6 +22,39 @@ public class ImagePartActor : MonoBehaviour
 
     public void FullyPaint() 
     {
+        paintManger.SetActive(false);
+        paintManger.GetComponent<XDPaint.PaintManager>().Init();
         GetComponent<SpriteRenderer>().color = LevelManager.instance.levelCreateOfficer.currentLevel.GetComponent<LevelActor>().paintController.Brush.Color;
+        PaintSuccessCheck();
     }
+
+    public void CleanThePaint() 
+    {
+        paintManger.GetComponent<XDPaint.PaintManager>().DoDispose();
+        paintManger.GetComponent<XDPaint.PaintManager>().Init();
+    }
+
+    void PaintSuccessCheck() 
+    {
+        if (GetComponent<SpriteRenderer>().color == partColor)
+        {
+            print("PAINT SUCCESS");
+        }
+        else
+        {
+            print("PAINT FAIL");
+        }
+    }
+
+    //IEnumerator FullyPaintProcess()
+    //{
+    //    paintManger.SetActive(false);
+    //    paintManger.GetComponent<XDPaint.PaintManager>().Init();
+    //    GetComponent<SpriteRenderer>().enabled = false;
+    //    yield return null;
+    //    GetComponent<SpriteRenderer>().color = LevelManager.instance.levelCreateOfficer.currentLevel.GetComponent<LevelActor>().paintController.Brush.Color;
+    //    GetComponent<SpriteRenderer>().enabled = true;
+    //}
+
+
 }
