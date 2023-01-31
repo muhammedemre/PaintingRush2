@@ -18,5 +18,6 @@ public class ColorPaletteActor : MonoBehaviour
     public void SetTheBrushColor(int buttonIndex)
     {
         LevelManager.instance.levelCreateOfficer.currentLevel.GetComponent<LevelActor>().paintController.Brush.SetColor(colorPalette[buttonIndex].GetComponent<Image>().color);
+        UIManager.instance.uICanvasOfficer.EnableAndDisableColorPalette(false);
     }
 }

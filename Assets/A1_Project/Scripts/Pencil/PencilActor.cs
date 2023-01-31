@@ -9,4 +9,20 @@ public class PencilActor : MonoBehaviour
     public ModelOfficer pencilModelOfficer;
     public PencilDrawProcessOfficer pencilDrawProcessOfficer;
 
+    public void BecomeBrush() 
+    {
+        if (pencilModelOfficer.selectedModelIndex != 0)
+        {
+            pencilModelOfficer.ActivateModel(0);
+        }      
+    }
+
+    public void BecomePen() 
+    {
+        if (pencilModelOfficer.selectedModelIndex != 1)
+        {
+            pencilModelOfficer.ActivateModel(1);
+        }          
+    }
+
 }

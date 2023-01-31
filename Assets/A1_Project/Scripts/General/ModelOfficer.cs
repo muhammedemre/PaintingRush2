@@ -6,9 +6,11 @@ using Sirenix.OdinInspector;
 public class ModelOfficer : MonoBehaviour
 {
     public Transform modelContainer;
+    public int selectedModelIndex;
 
     public void ActivateModel(int modelIndex) 
     {
+        selectedModelIndex = modelIndex;
         DeactivateAll(modelContainer);
         modelContainer.GetChild(modelIndex).gameObject.SetActive(true);
     }

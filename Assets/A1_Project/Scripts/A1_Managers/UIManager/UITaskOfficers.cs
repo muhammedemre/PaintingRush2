@@ -53,6 +53,7 @@ public class UITaskOfficers : MonoBehaviour
     public void UndoButton() 
     {
         LevelManager.instance.levelCreateOfficer.currentLevel.GetComponent<LevelActor>().drawImageActor.CleanTheCurrentImagePart();
+        UIManager.instance.uICanvasOfficer.EnableAndDisableColorPalette(true);
     }
     public void CompleteThePaint() 
     {

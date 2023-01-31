@@ -47,10 +47,12 @@ public class DrawImageActor : MonoBehaviour
 
         if (currentDrawState == DrawState.Outlining)
         {
+            levelActor.pencilActor.BecomePen();
             ActivatePath();
         }
         else if(currentDrawState == DrawState.Coloring)
         {
+            levelActor.pencilActor.BecomeBrush();
             ActivateImagePart();
         }
         
@@ -96,6 +98,7 @@ public class DrawImageActor : MonoBehaviour
         currentImagePart.GetComponent<ImagePartActor>().ActivateAndDeactivateTaraliAlan(true);
         currentImagePart.GetComponent<ImagePartActor>().ActivateAndDeactivatePaintManager(true);
         AssignThePartColors(currentImagePart.GetComponent<ImagePartActor>());
+        UIManager.instance.uICanvasOfficer.EnableAndDisableColorPalette(true);
     }
 
     void AssignThePartColors(ImagePartActor _currentImagePartActor) 
