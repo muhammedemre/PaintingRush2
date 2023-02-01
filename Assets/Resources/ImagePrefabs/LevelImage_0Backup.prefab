@@ -1947,7 +1947,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1088506744062401981
 Transform:
   m_ObjectHideFlags: 0
@@ -1957,7 +1957,7 @@ Transform:
   m_GameObject: {fileID: 2191845670655754319}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.15, y: 0.15, z: 1}
+  m_LocalScale: {x: 0.12, y: 0.12, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3573435332353518294}
@@ -2005,7 +2005,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d166e31281ad8bc4f8c6e80a78cbb8b4, type: 3}
-  m_Color: {r: 0.3018868, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2392,6 +2392,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   taraliAlan: {fileID: 7147095640951147207}
   paintManger: {fileID: 3571585383924184086}
+  partColor: {r: 0, g: 0, b: 0, a: 0}
+  fakeColors: []
+  acceptedSuccessRate: 50
 --- !u!1 &2641905005240390965
 GameObject:
   m_ObjectHideFlags: 0
@@ -3095,6 +3098,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   taraliAlan: {fileID: 181288424240192985}
   paintManger: {fileID: 170117271371083449}
+  partColor: {r: 0, g: 0, b: 0, a: 0}
+  fakeColors: []
+  acceptedSuccessRate: 50
 --- !u!1 &3252442559002786134
 GameObject:
   m_ObjectHideFlags: 0
@@ -4043,10 +4049,11 @@ MonoBehaviour:
   currentOutlineCanvas: {fileID: 2109420629197972251}
   brushSizeForPaint: 0.3
   currentImagePart: {fileID: 0}
-  acceptedSuccessRate: 0.5
   paintManagerOutline: {fileID: 6576631801775003734}
   xPoint: {fileID: 1088506744062401981}
   nodePoint: {fileID: 2794808062095389051}
+  imagePreview: {fileID: 0}
+  confettiPrefab: {fileID: 129898, guid: 36bdc02b23d9ca94d93bd715c0cca5c0, type: 3}
 --- !u!114 &3573435332353518288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4063,11 +4070,7 @@ MonoBehaviour:
   spacing: 0.2
   minSpacing: 0.1
   pathPointPrefab: {fileID: 9115512129533355966, guid: 20aa89b49e5a40d4fa27b3c13535af4c, type: 3}
-  failPath:
-  - {fileID: 2849915959623970588}
-  - {fileID: 5638080614094225430}
-  - {fileID: 5054488687783326925}
-  - {fileID: 7486448330959628947}
+  failPathContainer: {fileID: 0}
 --- !u!1 &3615728156293152225
 GameObject:
   m_ObjectHideFlags: 0
@@ -8408,6 +8411,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   taraliAlan: {fileID: 6937904281554461962}
   paintManger: {fileID: 2106387728660445463}
+  partColor: {r: 0, g: 0, b: 0, a: 0}
+  fakeColors: []
+  acceptedSuccessRate: 50
 --- !u!1 &7484083954253536855
 GameObject:
   m_ObjectHideFlags: 0

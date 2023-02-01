@@ -19,11 +19,11 @@ public class DrawImageActor : MonoBehaviour
     [SerializeField] GameObject currentOutlineCanvas;
     [SerializeField] float brushSizeForPaint;
     public GameObject currentImagePart;
-    public float acceptedSuccessRate;
     public PaintManager paintManagerOutline;
 
     [SerializeField] Transform xPoint, nodePoint;
     public Sprite imagePreview;
+    [SerializeField] GameObject confettiPrefab;
 
     private void Start()
     {
@@ -167,6 +167,7 @@ public class DrawImageActor : MonoBehaviour
     public IEnumerator NodePointPop() 
     {
         nodePoint.gameObject.SetActive(true);
+        GameObject tempConfetti = Instantiate(confettiPrefab, nodePoint.transform.position, Quaternion.identity, levelActor.transform);
         nodePoint.position = GetActivePathEndPosition();
         yield return new WaitForSeconds(0.1f);
         nodePoint.gameObject.SetActive(false);

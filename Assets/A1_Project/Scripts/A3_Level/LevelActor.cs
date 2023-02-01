@@ -14,4 +14,9 @@ public class LevelActor : MonoBehaviour
     public PaintController paintController;
     public PencilActor pencilActor;
 
+    private void Start()
+    {
+        UIManager.instance.uICanvasOfficer.LevelCounterUpdate(levelIndex);
+    }
+
 }

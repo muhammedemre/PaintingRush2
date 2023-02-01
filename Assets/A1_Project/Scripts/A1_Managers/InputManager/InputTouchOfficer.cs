@@ -11,6 +11,11 @@ public class InputTouchOfficer : InputAbstractOfficer
 
     void InputTouchProcess(bool touchStart, bool touchMoved, bool touchEnded, Vector2 touchPos)
     {
+        //if (GameManager.instance.currentGameState == ObserverSubjects.LevelInstantiate)
+        //{
+        //    return;
+        //}
+
         if (touchStart)
         {
             TouchStartProcess(touchPos);

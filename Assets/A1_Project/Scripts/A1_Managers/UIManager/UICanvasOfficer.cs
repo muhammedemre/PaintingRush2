@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class UICanvasOfficer : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class UICanvasOfficer : MonoBehaviour
     public float splashScreenDuration;
     public ColorPaletteActor colorPaletteActor;
     public GameObject fullyPaintButton, coloringScreen, colorContainer;
+    public TextMeshProUGUI levelCounterLabel;
+    public LevelLandingPageActor levelLandingPageActor;
 
 
     public void DisplaySplashScreen()
@@ -44,6 +47,15 @@ public class UICanvasOfficer : MonoBehaviour
     public void EnableAndDisableColorPalette(bool state) 
     {
         colorContainer.SetActive(state);
+    }
+
+    public void LevelCounterUpdate(int levelIndex)
+    {
+        levelCounterLabel.text = "LEVEL " + levelIndex.ToString();
+    }
+    public void EnableAndDisableLevelLandingPage(bool state) 
+    {
+        levelLandingPageActor.gameObject.SetActive(state);
     }
 
 }

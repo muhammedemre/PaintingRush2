@@ -17,6 +17,7 @@ public class LevelPreparationOfficer : MonoBehaviour
         AssignTheDrawImage();
 
         StartCoroutine(LevelIsReadyDelay());
+        PrepareTheLandingPage();
     }
 
     IEnumerator LevelIsReadyDelay()
@@ -38,5 +39,12 @@ public class LevelPreparationOfficer : MonoBehaviour
 
         Vector3 penPosition = levelActor.drawImageActor.GetActivePathBeginningPosition();
         levelActor.pencilActor.pencilDrawProcessOfficer.PositionThePen(penPosition, levelActor.pencilActor.pencilDrawProcessOfficer.positioningDuration, true);
+    }
+
+    void PrepareTheLandingPage() 
+    {
+        UIManager.instance.uICanvasOfficer.levelLandingPageActor.SetLevelPersonImage(0, true); // true means random
+        UIManager.instance.uICanvasOfficer.levelLandingPageActor.SetLevelSprite(levelActor.drawImageActor.imagePreview);
+        UIManager.instance.uICanvasOfficer.EnableAndDisableLevelLandingPage(true);
     }
 }

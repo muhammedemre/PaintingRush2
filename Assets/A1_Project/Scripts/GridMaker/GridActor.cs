@@ -53,14 +53,15 @@ public class GridActor : MonoBehaviour
     {
         completeRatio = (totalAmountOfGridObjectsAtTheBeginning - gridObjectContainer.childCount) / (float)totalAmountOfGridObjectsAtTheBeginning;
         DrawImageActor drawImageActor = LevelManager.instance.levelCreateOfficer.currentLevel.GetComponent<LevelActor>().drawImageActor;
-        if (completeRatio > drawImageActor.acceptedSuccessRate)
+        if (completeRatio > transform.parent.GetComponent<ImagePartActor>().acceptedSuccessRate)
         {
             SuccessfulyPainted(drawImageActor);
         }
     }
 
     void SuccessfulyPainted(DrawImageActor _drawImageActor) 
-    {       
+    {
+        print("SuccessfulyPainted");
         UIManager.instance.uICanvasOfficer.EnableAndDisableFullyPaintButton(true);
     }
 

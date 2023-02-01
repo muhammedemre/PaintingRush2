@@ -9,6 +9,7 @@ public class ImagePartActor : MonoBehaviour
     [SerializeField] GameObject paintManger;
     public Color partColor;
     public List<Color> fakeColors = new List<Color>();
+    public float acceptedSuccessRate = 50;
 
     public void ActivateAndDeactivateTaraliAlan(bool state) 
     {

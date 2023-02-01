@@ -22,6 +22,7 @@ public class GameManagerObserverOfficer : SerializedMonoBehaviour
     {
         // print("PUBLISHING : "+ notificationType);
         observerSubjectDict[notificationType].NotifyObservers();
+        GameManager.instance.currentGameState = notificationType;
     }
     
     #region Button

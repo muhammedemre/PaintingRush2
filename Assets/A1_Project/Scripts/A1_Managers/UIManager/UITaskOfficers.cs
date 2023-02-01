@@ -61,4 +61,10 @@ public class UITaskOfficers : MonoBehaviour
         LevelManager.instance.levelCreateOfficer.currentLevel.GetComponent<LevelActor>().drawImageActor.ActivateNextPathAndImagePartStep();
         UIManager.instance.uICanvasOfficer.EnableAndDisableFullyPaintButton(false);
     }
+
+    public void StartButton() 
+    {
+        UIManager.instance.uICanvasOfficer.EnableAndDisableLevelLandingPage(false);
+        GameManager.instance.gameManagerObserverOfficer.Publish(ObserverSubjects.PostLevelInstantiate);
+    }
 }

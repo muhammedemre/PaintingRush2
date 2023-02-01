@@ -240,6 +240,7 @@ MonoBehaviour:
   paintManger: {fileID: 7258170172158444951}
   partColor: {r: 0, g: 0, b: 0, a: 0}
   fakeColors: []
+  acceptedSuccessRate: 0.5
 --- !u!1001 &3008265169598441558
 PrefabInstance:
   m_ObjectHideFlags: 0
