@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using XDPaint.Controllers;
 using PathCreation;
+using XDPaint;
 
 public class PencilDrawProcessOfficer : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class PencilDrawProcessOfficer : MonoBehaviour
     [SerializeField] float successTolerance;
 
     float pathOutlinedDistance;
+
+    public bool outlining = false;
 
     private void Start()
     {
@@ -39,6 +42,8 @@ public class PencilDrawProcessOfficer : MonoBehaviour
 
     public void StartOutlining() 
     {
+        Vector2 normalizedPosition = Camera.main.WorldToScreenPoint(transform.position);
+        pencilActor.relatedLevelActor.drawImageActor.paintManagerOutline.PaintObject.OnMouseDown(normalizedPosition);
         pencilActor.pencilModelOfficer.modelContainer.DOLocalMoveX(pencilModelContainerXPosAtTheBeginning, positioningDuration).SetDelay(0f).OnComplete(() => canOutline = true);//.OnUpdate(CheckPosition);//;
     }
 
@@ -46,7 +51,10 @@ public class PencilDrawProcessOfficer : MonoBehaviour
     public void StopOutlining() 
     {
         canOutline = false;
-        
+
+        Vector2 normalizedPosition = Camera.main.WorldToScreenPoint(transform.position);
+        pencilActor.relatedLevelActor.drawImageActor.paintManagerOutline.PaintObject.OnMouseUp(normalizedPosition);
+
         if (failDrawing)// if finished
         {
             pencilActor.relatedLevelActor.drawImageActor.CompletedOutlinePart();
@@ -88,7 +96,11 @@ public class PencilDrawProcessOfficer : MonoBehaviour
         }
         
         Vector2 normalizedPosition = Camera.main.WorldToScreenPoint(transform.position);
-        InputController.Instance.DrawWithoutInput(normalizedPosition);
+
+
+        pencilActor.relatedLevelActor.drawImageActor.paintManagerOutline.PaintObject.OnMouseButton(normalizedPosition);
+        //InputController.Instance.DrawWithoutInput(normalizedPosition);
+        
     }
 
     public void StartColoring(Vector2 touchPos) 
@@ -144,6 +156,11 @@ public class PencilDrawProcessOfficer : MonoBehaviour
                 }
             }             
         }
+    }
+
+    public void EnableOutlining(bool state)
+    {
+        outlining = state;
     }
 
 }

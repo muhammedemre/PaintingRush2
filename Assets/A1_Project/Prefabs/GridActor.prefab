@@ -50,8 +50,10 @@ MonoBehaviour:
   gridObjectContainer: {fileID: 4256805726360932741}
   gridSize: 0.4
   neighbourTriggerDelay: 0.2
-  gridGroundObject: {fileID: 0}
+  gridGroundObject: {fileID: 1911315548551717327, guid: 7d1ec76538547fb4f86be629a1072d77, type: 3}
   createWithMesh: 0
+  totalAmountOfGridObjectsAtTheBeginning: 0
+  completeRatio: 0
 --- !u!1 &6981494349176711234
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,7 +136,7 @@ SpriteRenderer:
   m_Size: {x: 5.12, y: 5.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!60 &2913691731948574813

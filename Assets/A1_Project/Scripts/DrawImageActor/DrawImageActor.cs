@@ -23,7 +23,7 @@ public class DrawImageActor : MonoBehaviour
 
     [SerializeField] Transform xPoint, nodePoint;
     public Sprite imagePreview;
-    [SerializeField] GameObject confettiPrefab;
+    [SerializeField] GameObject confettiPrefab, popUpTextPrefab;
 
     private void Start()
     {
@@ -43,15 +43,18 @@ public class DrawImageActor : MonoBehaviour
 
         currentDrawState = imageCompleteIndex >= imagePathOfficer.pathContainer.childCount ? DrawState.Coloring : DrawState.Outlining;
 
-        InputController.Instance.EnableOutlining((currentDrawState == DrawState.Outlining)? true : false);
+        levelActor.pencilActor.pencilDrawProcessOfficer.EnableOutlining((currentDrawState == DrawState.Outlining) ? true : false);
+        //InputController.Instance.EnableOutlining((currentDrawState == DrawState.Outlining)? true : false);
 
         if (currentDrawState == DrawState.Outlining)
         {
+            InputController.Instance.enabled = false;
             levelActor.pencilActor.BecomePen();
             ActivatePath();
         }
         else if(currentDrawState == DrawState.Coloring)
         {
+            InputController.Instance.enabled = true;
             levelActor.pencilActor.BecomeBrush();
             ActivateImagePart();
         }
@@ -168,6 +171,7 @@ public class DrawImageActor : MonoBehaviour
     {
         nodePoint.gameObject.SetActive(true);
         GameObject tempConfetti = Instantiate(confettiPrefab, nodePoint.transform.position, Quaternion.identity, levelActor.transform);
+        GameObject tempPopUpText = Instantiate(popUpTextPrefab, nodePoint.transform.position, Quaternion.identity, levelActor.transform);
         nodePoint.position = GetActivePathEndPosition();
         yield return new WaitForSeconds(0.1f);
         nodePoint.gameObject.SetActive(false);

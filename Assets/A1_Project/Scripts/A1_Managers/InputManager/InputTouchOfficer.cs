@@ -34,7 +34,7 @@ public class InputTouchOfficer : InputAbstractOfficer
     {
         LevelActor currentLevel = LevelManager.instance.levelCreateOfficer.currentLevel.GetComponent<LevelActor>();
         if (currentLevel.drawImageActor.currentDrawState == DrawImageActor.DrawState.Outlining)
-        {
+        {           
             currentLevel.pencilActor.pencilDrawProcessOfficer.StartOutlining();
         }
         else if (currentLevel.drawImageActor.currentDrawState == DrawImageActor.DrawState.Coloring)

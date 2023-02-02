@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ImagePartActor : MonoBehaviour
 {
     [SerializeField] GameObject taraliAlan;
-    [SerializeField] GameObject paintManger;
+    public GameObject paintManger;
     public Color partColor;
     public List<Color> fakeColors = new List<Color>();
     public float acceptedSuccessRate = 50;

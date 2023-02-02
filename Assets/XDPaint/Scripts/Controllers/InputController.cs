@@ -12,6 +12,11 @@ using UnityEngine;
 using XDPaint.Tools;
 using XDPaint.Utils;
 
+using System.Collections;
+using System.Collections.Generic;
+using XDPaint;
+using XDPaint.Controllers;
+
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.EnhancedTouch;
@@ -19,13 +24,11 @@ using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 #endif
 
+
 namespace XDPaint.Controllers
 {
 	public class InputController : Singleton<InputController>
 	{
-		// Emre
-		[SerializeField] bool outlining = false;
-		// Emre //
 
 		[Header("Ignore Raycasts Settings")]
 		[SerializeField] private Canvas canvas;
@@ -46,6 +49,7 @@ namespace XDPaint.Controllers
 		public Camera Camera { private get; set; }
 		private int fingerId = -1;
 		private bool isVRMode;
+
 		
 #if XDPAINT_VR_ENABLE
 		private List<InputDevice> leftHandedControllers;
@@ -129,7 +133,7 @@ namespace XDPaint.Controllers
 			}
 			else
 			{
-                //Pen / Touch / Mouse
+				//Pen / Touch / Mouse
 #if ENABLE_INPUT_SYSTEM
 				if (Pen.current != null && (Pen.current.press.isPressed || Pen.current.press.wasReleasedThisFrame))
 				{
@@ -208,7 +212,12 @@ namespace XDPaint.Controllers
 					}
 				}
 #elif ENABLE_LEGACY_INPUT_MANAGER
-                //Touch / Mouse
+				//Touch / Mouse
+				//LevelManager levelManager = FindObjectOfType<LevelManager>();
+				//if ()
+    //            {
+
+    //            }
 
 				if (Input.touchSupported && Input.touchCount > 0 && !isWebgl)
 				{
@@ -252,10 +261,10 @@ namespace XDPaint.Controllers
 
 					if (Input.GetMouseButton(0))
 					{
-                        if (!outlining)
-                        {
+                        //if (!.outlining)
+                        //{
 							OnMouseButton?.Invoke(Input.mousePosition, 1f);
-						}						
+						//}						
 					}
 
 					if (Input.GetMouseButtonUp(0))
@@ -266,15 +275,5 @@ namespace XDPaint.Controllers
 #endif
 			}
 		}
-		public void DrawWithoutInput(Vector2 position)
-		{		
-			//print("DRAWING");
-			OnMouseButton?.Invoke(position, 1);
-		}
-
-		public void EnableOutlining(bool state) 
-		{
-			outlining = state;
-		}
-	}
+    }
 }
