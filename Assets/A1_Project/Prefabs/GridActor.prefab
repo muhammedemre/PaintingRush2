@@ -53,7 +53,7 @@ MonoBehaviour:
   gridGroundObject: {fileID: 1911315548551717327, guid: 7d1ec76538547fb4f86be629a1072d77, type: 3}
   createWithMesh: 0
   totalAmountOfGridObjectsAtTheBeginning: 0
-  completeRatio: 0
+  completeRatio: 0.7
 --- !u!1 &6981494349176711234
 GameObject:
   m_ObjectHideFlags: 0

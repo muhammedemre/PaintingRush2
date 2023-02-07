@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XDPaint.Controllers;
 
 public class LevelPreparationOfficer : MonoBehaviour
 {
     [SerializeField] LevelActor levelActor;
     [SerializeField] float afterReadyDelay;
+    [SerializeField] Canvas drawCanvas;
+    [SerializeField] GameObject ignoreArea;
 
     private void Start()
     {
@@ -14,6 +17,7 @@ public class LevelPreparationOfficer : MonoBehaviour
 
     void PrepareTheLevel()
     {
+        AssignInputControllersArguments();
         AssignTheDrawImage();
 
         StartCoroutine(LevelIsReadyDelay());
@@ -29,7 +33,7 @@ public class LevelPreparationOfficer : MonoBehaviour
     void AssignTheDrawImage() 
     {
         string imagePath = "ImagePrefabs/" + "LevelImage_" + levelActor.levelIndex.ToString();
-        //print("imagePath: "+imagePath);
+        print("imagePath: "+ imagePath);
         GameObject drawImagePrefab = Resources.Load<GameObject>(imagePath);
         GameObject tempDrawImage = Instantiate(drawImagePrefab, transform);
         levelActor.drawImageActor = tempDrawImage.GetComponent<DrawImageActor>();
@@ -46,5 +50,10 @@ public class LevelPreparationOfficer : MonoBehaviour
         UIManager.instance.uICanvasOfficer.levelLandingPageActor.SetLevelPersonImage(0, true); // true means random
         UIManager.instance.uICanvasOfficer.levelLandingPageActor.SetLevelSprite(levelActor.drawImageActor.imagePreview);
         UIManager.instance.uICanvasOfficer.EnableAndDisableLevelLandingPage(true);
+    }
+
+    void AssignInputControllersArguments()
+    {
+        LevelManager.instance.paintController.GetComponent<InputController>().AssignCanvasAndIgnoreArea(drawCanvas, new GameObject[1] { ignoreArea });
     }
 }

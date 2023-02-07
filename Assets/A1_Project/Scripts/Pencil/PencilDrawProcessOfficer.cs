@@ -122,7 +122,7 @@ public class PencilDrawProcessOfficer : MonoBehaviour
         Vector3 newPos = Camera.main.ScreenToWorldPoint(newTouchPos);
         //print("COLORING2: " + touchPos + " newPos: " + newPos);
         transform.position = newPos;
-        GridVisit(touchPos);
+        //GridVisit(touchPos);
     }
 
     void FinishedButPlayerKeepsDrawing()

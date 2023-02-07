@@ -8,6 +8,7 @@ public class PencilActor : MonoBehaviour
     public LevelActor relatedLevelActor;
     public ModelOfficer pencilModelOfficer;
     public PencilDrawProcessOfficer pencilDrawProcessOfficer;
+    public PencilDetectorOfficer pencilDetectorOfficer;
 
     public void BecomeBrush() 
     {

@@ -29,6 +29,7 @@ public class GridActor : MonoBehaviour
 
     void CreateGrids()   
     {
+        CleanAllGrids();
         GameObject tempNeighbour = Instantiate(gridObjectPrefab, gridObjectContainer);
         tempNeighbour.GetComponent<GridObjectActor>().AssignAndPrepareGridObjectValues(gridSize, this);
         tempNeighbour.GetComponent<GridObjectActor>().startPoint = true;

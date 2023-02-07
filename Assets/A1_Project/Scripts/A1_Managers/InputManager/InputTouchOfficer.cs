@@ -59,6 +59,10 @@ public class InputTouchOfficer : InputAbstractOfficer
     void TouchEndProcess(Vector2 touchPos) 
     {
         LevelActor currentLevel = LevelManager.instance.levelCreateOfficer.currentLevel.GetComponent<LevelActor>();
+        if (currentLevel.drawImageActor == null)
+        {
+            return;
+        }
         if (currentLevel.drawImageActor.currentDrawState == DrawImageActor.DrawState.Outlining)
         {
             currentLevel.pencilActor.pencilDrawProcessOfficer.StopOutlining();

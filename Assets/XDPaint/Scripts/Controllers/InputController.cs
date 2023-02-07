@@ -275,5 +275,10 @@ namespace XDPaint.Controllers
 #endif
 			}
 		}
+		public void AssignCanvasAndIgnoreArea(Canvas _canvas, GameObject[] _ignoreArea) 
+		{
+			canvas = _canvas;
+			ignoreForRaycasts = _ignoreArea;
+		}
     }
 }

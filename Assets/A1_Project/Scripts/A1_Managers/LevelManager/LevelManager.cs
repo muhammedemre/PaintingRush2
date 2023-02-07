@@ -1,8 +1,11 @@
-﻿public class LevelManager : Manager
+﻿using XDPaint.Controllers;
+public class LevelManager : Manager
 {
     public static LevelManager instance;
     public LevelCreateOfficer levelCreateOfficer;
     public LevelMoveOfficer levelMoveOfficer;
+    public PaintController paintController;
+
     public int levelAmount;
 
     private void Awake()

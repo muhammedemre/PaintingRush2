@@ -25,7 +25,7 @@ public class ImagePartActor : MonoBehaviour
     {
         paintManger.SetActive(false);
         paintManger.GetComponent<XDPaint.PaintManager>().Init();
-        GetComponent<SpriteRenderer>().color = LevelManager.instance.levelCreateOfficer.currentLevel.GetComponent<LevelActor>().paintController.Brush.Color;
+        GetComponent<SpriteRenderer>().color = LevelManager.instance.paintController.Brush.Color;
         PaintSuccessCheck();
     }
 

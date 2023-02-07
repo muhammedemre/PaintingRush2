@@ -67,4 +67,10 @@ public class UITaskOfficers : MonoBehaviour
         UIManager.instance.uICanvasOfficer.EnableAndDisableLevelLandingPage(false);
         GameManager.instance.gameManagerObserverOfficer.Publish(ObserverSubjects.PostLevelInstantiate);
     }
+
+    public void ContinueButton() 
+    {
+        LevelManager.instance.levelMoveOfficer.GoNextLevel();
+        UIManager.instance.uICanvasOfficer.ActivateInGameScreen();
+    }
 }

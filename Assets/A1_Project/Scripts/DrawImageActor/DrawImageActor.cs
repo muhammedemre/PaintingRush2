@@ -9,6 +9,7 @@ public class DrawImageActor : MonoBehaviour
 {
     public LevelActor levelActor;
     public ImagePathOfficer imagePathOfficer;
+    public DrawImageVisualsAssignOfficer drawImageVisualsAssignOfficer;
     public int imageCompleteIndex = -1;
     public Transform imagePartsContainer, outlinesContainer;
     public PathCreator activePath;
@@ -17,7 +18,7 @@ public class DrawImageActor : MonoBehaviour
 
     [SerializeField] GameObject canvasOutlinePrefab;
     [SerializeField] GameObject currentOutlineCanvas;
-    [SerializeField] float brushSizeForPaint;
+    [SerializeField] float brushSizeForPaint, penSizeForOutline;
     public GameObject currentImagePart;
     public PaintManager paintManagerOutline;
 
@@ -29,6 +30,12 @@ public class DrawImageActor : MonoBehaviour
     {
         paintManagerOutline.ObjectForPainting = currentOutlineCanvas;
         paintManagerOutline.Init();
+        GetReadyForOutlining();
+
+        if (GetComponent<DrawImageVisualsAssignOfficer>())
+        {
+            drawImageVisualsAssignOfficer.AssignMaterials();
+        }      
     }
 
     public enum DrawState
@@ -135,7 +142,14 @@ public class DrawImageActor : MonoBehaviour
         {
             imagePart.gameObject.SetActive(true);
         }
-        levelActor.paintController.Brush.Size = brushSizeForPaint;
+        LevelManager.instance.paintController.Brush.Size = brushSizeForPaint;
+        levelActor.pencilActor.pencilDetectorOfficer.SetDetectorSize(brushSizeForPaint);
+    }
+
+    void GetReadyForOutlining() 
+    {
+        LevelManager.instance.paintController.Brush.Size = penSizeForOutline;
+        LevelManager.instance.paintController.Brush.SetColor(Color.black);
     }
 
     public Vector3 GetActivePathBeginningPosition() 
@@ -193,8 +207,19 @@ public class DrawImageActor : MonoBehaviour
     public void ImageIsCompleted() 
     {
         currentDrawState = DrawState.Completed;
-        UIManager.instance.uICanvasOfficer.EnableAndDisableColoringScreen(false);
+        UIManager.instance.uICanvasOfficer.ActivateCompleteScreen();
+        StartCoroutine(ConfettiShow());
     }
+
+    IEnumerator ConfettiShow() 
+    {
+        foreach (Transform confetti in UIManager.instance.uICanvasOfficer.confettiContainer.transform)
+        {           
+            confetti.GetComponent<ParticleSystem>().Play();
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
 }
 
 public static class ShuffleList

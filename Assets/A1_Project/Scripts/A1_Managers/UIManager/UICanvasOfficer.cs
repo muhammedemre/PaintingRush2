@@ -10,7 +10,7 @@ public class UICanvasOfficer : MonoBehaviour
     public GameObject inGameScreen, nextButton, bgMusicButton, soundButton, vibrationButton;
     public float splashScreenDuration;
     public ColorPaletteActor colorPaletteActor;
-    public GameObject fullyPaintButton, coloringScreen, colorContainer;
+    public GameObject fullyPaintButton, coloringScreen, colorContainer, completeScreen, confettiContainer;
     public TextMeshProUGUI levelCounterLabel;
     public LevelLandingPageActor levelLandingPageActor;
 
@@ -27,9 +27,10 @@ public class UICanvasOfficer : MonoBehaviour
 
     }
 
-    void ActivateInGameScreen()
+    public void ActivateInGameScreen()
     {
         splashScreenActor.gameObject.SetActive(false);
+        completeScreen.SetActive(false);
         inGameScreen.SetActive(true);
     }
 
@@ -56,6 +57,13 @@ public class UICanvasOfficer : MonoBehaviour
     public void EnableAndDisableLevelLandingPage(bool state) 
     {
         levelLandingPageActor.gameObject.SetActive(state);
+    }
+
+    public void ActivateCompleteScreen() 
+    {
+        completeScreen.SetActive(true);
+        inGameScreen.SetActive(false);
+        EnableAndDisableColoringScreen(false);
     }
 
 }
