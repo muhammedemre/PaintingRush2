@@ -43,6 +43,7 @@ public class DrawImageVisualsAssignOfficer : MonoBehaviour
         {
             Material newMaterial = new Material(alphaMaskShader);
             newMaterial.mainTexture = imagePartSprites[i].texture;
+            newMaterial.SetTexture("_MaskTex", imagePartSprites[i].texture);
             Transform imagePart = relatedDrawImage.imagePartsContainer.GetChild(i);
             imagePart.GetComponent<SpriteRenderer>().material = newMaterial;
         }
