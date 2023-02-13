@@ -30,7 +30,7 @@ public class InputTouchOfficer : InputAbstractOfficer
         }
     }
 
-    void TouchStartProcess(Vector2 touchPos) 
+    void TouchStartProcess(Vector2 touchPos)
     {
         LevelActor currentLevel = LevelManager.instance.levelCreateOfficer.currentLevel.GetComponent<LevelActor>();
         if (currentLevel.drawImageActor.currentDrawState == DrawImageActor.DrawState.Outlining)

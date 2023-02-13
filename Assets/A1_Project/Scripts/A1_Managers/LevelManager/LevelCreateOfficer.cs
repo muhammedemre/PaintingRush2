@@ -35,6 +35,7 @@ public class LevelCreateOfficer : MonoBehaviour
         GameObject tempLevel = Instantiate(levelPrefab, levelContainer.transform.position, Quaternion.identity, levelContainer.transform);
         currentLevel = tempLevel;
         currentLevel.GetComponent<LevelActor>().levelIndex = levelCounter;
+        SDKManager.instance.SendGameAnalyticsProgressionEvent("LevelStart:" + levelCounter, GameAnalyticsSDK.GAProgressionStatus.Start);
         //currentLevel.transform.eulerAngles = new Vector3(0f, 180f, 0f);
         GameManager.instance.gameManagerObserverOfficer.Publish(ObserverSubjects.PostGameStart);
 

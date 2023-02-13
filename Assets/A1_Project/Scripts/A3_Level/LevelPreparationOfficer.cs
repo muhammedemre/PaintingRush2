@@ -33,7 +33,7 @@ public class LevelPreparationOfficer : MonoBehaviour
     void AssignTheDrawImage() 
     {
         string imagePath = "ImagePrefabs/" + "LevelImage_" + levelActor.levelIndex.ToString();
-        print("imagePath: "+ imagePath);
+        //print("imagePath: "+ imagePath);
         GameObject drawImagePrefab = Resources.Load<GameObject>(imagePath);
         GameObject tempDrawImage = Instantiate(drawImagePrefab, transform);
         levelActor.drawImageActor = tempDrawImage.GetComponent<DrawImageActor>();

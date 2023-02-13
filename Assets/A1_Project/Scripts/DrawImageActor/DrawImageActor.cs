@@ -209,6 +209,7 @@ public class DrawImageActor : MonoBehaviour
         currentDrawState = DrawState.Completed;
         UIManager.instance.uICanvasOfficer.ActivateCompleteScreen();
         StartCoroutine(ConfettiShow());
+        SDKManager.instance.SendGameAnalyticsProgressionEvent("LevelCompleted:" + levelActor.levelIndex, GameAnalyticsSDK.GAProgressionStatus.Complete);
     }
 
     IEnumerator ConfettiShow() 

@@ -15,7 +15,6 @@ public class LevelActor : MonoBehaviour
 
     private void Start()
     {
-        UIManager.instance.uICanvasOfficer.LevelCounterUpdate(levelIndex);
+        UIManager.instance.uICanvasOfficer.LevelCounterUpdate(levelIndex);      
     }
-
 }
