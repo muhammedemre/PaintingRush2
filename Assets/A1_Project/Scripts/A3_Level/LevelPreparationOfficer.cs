@@ -12,6 +12,7 @@ public class LevelPreparationOfficer : MonoBehaviour
 
     private void Start()
     {
+        InputManager.instance.getInputOfficer.ChangeInputType(GetInputOfficer.ActiveInputType.TouchInput);
         PrepareTheLevel();
     }
 

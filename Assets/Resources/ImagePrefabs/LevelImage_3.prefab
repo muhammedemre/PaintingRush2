@@ -7129,7 +7129,7 @@ MonoBehaviour:
   canvasOutlinePrefab: {fileID: 4499671088110122583, guid: 44b652b71c71dca4899d1cd5edfd611a, type: 3}
   currentOutlineCanvas: {fileID: 2715963903349824128}
   brushSizeForPaint: 0.3
-  penSizeForOutline: 0.15
+  penSizeForOutline: 0.1
   currentImagePart: {fileID: 0}
   paintManagerOutline: {fileID: 5850863947823272971}
   xPoint: {fileID: 1088506744062401981}

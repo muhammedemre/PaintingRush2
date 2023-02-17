@@ -478,6 +478,7 @@ GameObject:
   - component: {fileID: 7038901585941403776}
   - component: {fileID: 7038901585941403779}
   - component: {fileID: 5412804057015386379}
+  - component: {fileID: 4473244668549657959}
   - component: {fileID: 3950391258385334851}
   m_Layer: 0
   m_Name: PencilAnchor
@@ -519,6 +520,7 @@ MonoBehaviour:
   pencilModelOfficer: {fileID: 7038901585941403779}
   pencilDrawProcessOfficer: {fileID: 5412804057015386379}
   pencilDetectorOfficer: {fileID: 2368058909881085136}
+  pencilMoveOfficer: {fileID: 4473244668549657959}
 --- !u!114 &7038901585941403779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -553,6 +555,20 @@ MonoBehaviour:
   failDrawing: 0
   successTolerance: 0
   outlining: 0
+--- !u!114 &4473244668549657959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7038901585941403782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d85afaa74efb56b42b7ae8684787a230, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 111
+  smoothTime: 0.2
 --- !u!50 &3950391258385334851
 Rigidbody2D:
   serializedVersion: 4

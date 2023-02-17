@@ -4075,7 +4075,7 @@ MonoBehaviour:
   canvasOutlinePrefab: {fileID: 4499671088110122583, guid: 44b652b71c71dca4899d1cd5edfd611a, type: 3}
   currentOutlineCanvas: {fileID: 2715963903349824128}
   brushSizeForPaint: 0.3
-  penSizeForOutline: 0.15
+  penSizeForOutline: 0.1
   currentImagePart: {fileID: 0}
   paintManagerOutline: {fileID: 5850863947823272971}
   xPoint: {fileID: 1088506744062401981}
@@ -11769,7 +11769,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   taraliAlan: {fileID: 151798653008691039}
   paintManger: {fileID: 3696936138450564346}
-  partColor: {r: 0.10062885, g: 1, b: 0.13381955, a: 0}
+  partColor: {r: 0.86274517, g: 0.6431373, b: 0.25490198, a: 1}
   fakeColors:
   - {r: 0.16666657, g: 0.93360835, b: 1, a: 1}
   - {r: 0.7264151, g: 0.5250841, b: 0, a: 1}

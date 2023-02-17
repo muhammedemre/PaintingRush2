@@ -23,6 +23,10 @@ public class PencilDetectorOfficer : MonoBehaviour
         {
             if (other.GetComponent<GridObjectDetector>().relatedGridObjectActor.transform.name.Contains(partName))
             {
+                if (pencilActor.relatedLevelActor.drawImageActor.currentImagePart.GetComponent<ImagePartActor>().taraliAlan.activeSelf)
+                {
+                    pencilActor.relatedLevelActor.drawImageActor.currentImagePart.GetComponent<ImagePartActor>().ActivateAndDeactivateTaraliAlan(false);
+                }
                 other.GetComponent<GridObjectDetector>().relatedGridObjectActor.GetComponent<GridObjectActor>().IAmVisited();
             }
         }

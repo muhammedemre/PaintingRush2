@@ -32,6 +32,7 @@ public class UICanvasOfficer : MonoBehaviour
         splashScreenActor.gameObject.SetActive(false);
         completeScreen.SetActive(false);
         inGameScreen.SetActive(true);
+        EnableAndDisableColoringScreen(false);
     }
 
     public void EnableAndDisableFullyPaintButton(bool state) 

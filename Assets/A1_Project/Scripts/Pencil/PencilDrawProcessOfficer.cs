@@ -96,32 +96,47 @@ public class PencilDrawProcessOfficer : MonoBehaviour
         }
         
         Vector2 normalizedPosition = Camera.main.WorldToScreenPoint(transform.position);
-
-
+        //print("COLORING1: " + normalizedPosition);
         pencilActor.relatedLevelActor.drawImageActor.paintManagerOutline.PaintObject.OnMouseButton(normalizedPosition);
         //InputController.Instance.DrawWithoutInput(normalizedPosition);
         
     }
 
-    public void StartColoring(Vector2 touchPos) 
+    public void StartColoring() 
     {
-        Vector3 newPos = Camera.main.ScreenToWorldPoint(touchPos);
-        newPos = new Vector3(newPos.x, newPos.y, 10f);
-        transform.position = newPos;
-        //pencilActor.relatedLevelActor.drawImageActor.currentImagePart.GetComponent<ImagePartActor>().ActivateAndDeactivateTaraliAlan(false);
+        Vector2 normalizedPosition = Camera.main.WorldToScreenPoint(new Vector2(transform.position.x, transform.position.y));
+        pencilActor.relatedLevelActor.drawImageActor.paintManagerOutline.PaintObject.OnMouseDown(normalizedPosition);
+        //transform.position = newPos;
+
+        //Vector2 normalizedPosition = Camera.main.WorldToScreenPoint(transform.position);
+
+
+        //if (pencilActor.relatedLevelActor.drawImageActor.currentImagePart.GetComponent<ImagePartActor>().taraliAlan.activeSelf)
+        //{
+        //    pencilActor.relatedLevelActor.drawImageActor.currentImagePart.GetComponent<ImagePartActor>().ActivateAndDeactivateTaraliAlan(false);
+        //}
+
     }
 
-    public void StopColoring(Vector2 touchPos) 
+    public void StopColoring() 
     {
-        
+        if (pencilActor.relatedLevelActor.drawImageActor == null)
+        {
+            return;
+        }
+        Vector2 normalizedPosition = Camera.main.WorldToScreenPoint(new Vector2(transform.position.x, transform.position.y));
+        pencilActor.relatedLevelActor.drawImageActor.paintManagerOutline.PaintObject.OnMouseUp(normalizedPosition);
     }
 
-    public void Coloring(Vector2 touchPos) 
+    public void Coloring() 
     {
-        Vector3 newTouchPos = new Vector3(touchPos.x, touchPos.y, 10f);
-        Vector3 newPos = Camera.main.ScreenToWorldPoint(newTouchPos);
-        //print("COLORING2: " + touchPos + " newPos: " + newPos);
-        transform.position = newPos;
+        //Vector3 newTouchPos = new Vector3(touchPos.x, touchPos.y, 10f);
+        //Vector3 newPos = Camera.main.ScreenToWorldPoint(newTouchPos);
+        Vector2 normalizedPosition = Camera.main.WorldToScreenPoint(new Vector2(transform.position.x, transform.position.y));
+        pencilActor.relatedLevelActor.drawImageActor.paintManagerOutline.PaintObject.OnMouseButton(normalizedPosition);
+
+        //print("COLORING2: " + normalizedPosition);
+        //transform.position = newPos;
         //GridVisit(touchPos);
     }
 
@@ -137,7 +152,7 @@ public class PencilDrawProcessOfficer : MonoBehaviour
         failDrawing = false;
     }
 
-    void GridVisit(Vector2 touchPos) 
+    void GridVisit(Vector2 touchPos)
     {
         Vector3 newTouchPos = new Vector3(touchPos.x, touchPos.y, 10f);
         Vector2 drawPos = Camera.main.ScreenToWorldPoint(newTouchPos);

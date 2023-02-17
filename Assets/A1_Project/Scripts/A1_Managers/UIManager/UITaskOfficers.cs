@@ -25,6 +25,7 @@ public class UITaskOfficers : MonoBehaviour
         {
             LevelManager.instance.levelMoveOfficer.GoPreviousLevel();
         }
+        UIManager.instance.uICanvasOfficer.ActivateInGameScreen();
     }
 
     public void NextButton()
@@ -54,9 +55,11 @@ public class UITaskOfficers : MonoBehaviour
     {
         LevelManager.instance.levelCreateOfficer.currentLevel.GetComponent<LevelActor>().drawImageActor.CleanTheCurrentImagePart();
         UIManager.instance.uICanvasOfficer.EnableAndDisableColorPalette(true);
+        UIManager.instance.uICanvasOfficer.fullyPaintButton.SetActive(false);
     }
     public void CompleteThePaint() 
     {
+        SDKManager.instance.SendGameAnalyticsDesignEvent("Undo");
         LevelManager.instance.levelCreateOfficer.currentLevel.GetComponent<LevelActor>().drawImageActor.FullyPaintIfNeeded();
         LevelManager.instance.levelCreateOfficer.currentLevel.GetComponent<LevelActor>().drawImageActor.ActivateNextPathAndImagePartStep();
         UIManager.instance.uICanvasOfficer.EnableAndDisableFullyPaintButton(false);

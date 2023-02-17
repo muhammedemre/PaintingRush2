@@ -180,6 +180,7 @@ namespace XDPaint.Core.PaintObject.Base
 
         public void OnMouseDown(Vector3 position, float pressure = 1f, Triangle triangle = null)
         {
+            //Debug.Log("OnMouseDown position: " + position);
             if (ObjectTransform == null)
             {
                 Debug.LogError("ObjectForPainting has been destroyed!");
@@ -228,6 +229,7 @@ namespace XDPaint.Core.PaintObject.Base
 
         public void OnMouseButton(Vector3 position, float brushPressure = 1f, Triangle triangle = null)
         {
+            //Debug.Log("OnMouseButton position: "+ position);
             if (ObjectTransform == null)
             {
                 Debug.LogError("ObjectForPainting has been destroyed!");
@@ -275,6 +277,7 @@ namespace XDPaint.Core.PaintObject.Base
 
         public void OnMouseUp(Vector3 position)
         {
+            //Debug.Log("OnMouseUp position: " + position);
             if (ObjectTransform == null)
             {
                 Debug.LogError("ObjectForPainting has been destroyed!");

@@ -25,9 +25,13 @@ public class DataSaveAndLoadOfficer : MonoBehaviour
         GameData gameData = new GameData();
         gameData.loaded = true;
 
-        if (Time.time > 5f) // need to be sure game is not saved before its loaded - will be changed with splashScreenDuration
+        if (Time.time > UIManager.instance.uICanvasOfficer.splashScreenDuration) // need to be sure game is not saved before its loaded - will be changed with splashScreenDuration
         {
             ES3.Save("gameData", gameData);
+            ES3.Save("musicState", AudioManager.instance.bGmusicState);
+            ES3.Save("sfxState", AudioManager.instance.soundFXState);
+            ES3.Save("vibrationState", VibrationManager.instance.ableToVibrate);
+            ES3.Save("reachedLevel", LevelManager.instance.levelCreateOfficer.LevelCounter);
         }
     }
 
@@ -39,12 +43,17 @@ public class DataSaveAndLoadOfficer : MonoBehaviour
             GameData gameData = ES3.Load("gameData", new GameData());
             if (gameData.loaded)
             {
+                AudioManager.instance.DataLoadProcess(ES3.Load("musicState", true), ES3.Load("sfxState", true));
+                VibrationManager.instance.DataLoadProcess(ES3.Load("vibrationState", true));
+
+                LevelManager.instance.levelCreateOfficer.LevelCounter = ES3.Load("reachedLevel", 1);
+
                 Debug.Log("Data successfuly Loaded");
                 GameManager.instance.gameManagerObserverOfficer.Publish(ObserverSubjects.GameStart);
             }
             else
             {
-                Debug.Log("GAME DATA couldn't loaded so game is not gonnabe started");
+                Debug.Log("GAME DATA couldn't be loaded so game is not gonnabe started");
             }
         }
         else // first time game is played so nothing to load yet.

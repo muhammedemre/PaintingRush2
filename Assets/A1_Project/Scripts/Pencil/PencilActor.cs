@@ -9,12 +9,14 @@ public class PencilActor : MonoBehaviour
     public ModelOfficer pencilModelOfficer;
     public PencilDrawProcessOfficer pencilDrawProcessOfficer;
     public PencilDetectorOfficer pencilDetectorOfficer;
+    public PencilMoveOfficer pencilMoveOfficer;
 
     public void BecomeBrush() 
     {
         if (pencilModelOfficer.selectedModelIndex != 0)
         {
             pencilModelOfficer.ActivateModel(0);
+            InputManager.instance.getInputOfficer.ChangeInputType(GetInputOfficer.ActiveInputType.SlideInput);
         }      
     }
 

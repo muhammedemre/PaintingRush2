@@ -61,7 +61,7 @@ public class DrawImageActor : MonoBehaviour
         }
         else if(currentDrawState == DrawState.Coloring)
         {
-            InputController.Instance.enabled = true;
+            InputController.Instance.enabled = false;
             levelActor.pencilActor.BecomeBrush();
             ActivateImagePart();
         }
@@ -209,7 +209,8 @@ public class DrawImageActor : MonoBehaviour
         currentDrawState = DrawState.Completed;
         UIManager.instance.uICanvasOfficer.ActivateCompleteScreen();
         StartCoroutine(ConfettiShow());
-        SDKManager.instance.SendGameAnalyticsProgressionEvent("LevelCompleted:" + levelActor.levelIndex, GameAnalyticsSDK.GAProgressionStatus.Complete);
+        SDKManager.instance.SendGameAnalyticsProgressionEvent("LevelCompleted_" + levelActor.levelIndex.ToString(), GameAnalyticsSDK.GAProgressionStatus.Complete);
+        AdmobManager.instance.PlayInterstitialAd();
     }
 
     IEnumerator ConfettiShow() 

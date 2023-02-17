@@ -38,6 +38,7 @@ public class VibrationManager : MonoBehaviour
     public void ChangeVibrationState() 
     {
         ableToVibrate = !ableToVibrate;
+        SDKManager.instance.SendGameAnalyticsDesignEvent("VibrationState_" + ableToVibrate.ToString());
         HandleStateChange();
     }
 

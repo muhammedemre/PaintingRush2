@@ -41,11 +41,13 @@ public class AudioManager : Manager
     public void ChangeMusicState()
     {
         bGmusicState = !bGmusicState;
+        SDKManager.instance.SendGameAnalyticsDesignEvent("MusicState_"+bGmusicState.ToString());
         MusicState();
     }
     public void ChangeSFXState() 
     {
         soundFXState = !soundFXState;
+        SDKManager.instance.SendGameAnalyticsDesignEvent("SFXState_" + soundFXState.ToString());
         SFXState();
     }
 

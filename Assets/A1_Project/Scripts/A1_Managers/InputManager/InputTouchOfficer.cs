@@ -39,7 +39,7 @@ public class InputTouchOfficer : InputAbstractOfficer
         }
         else if (currentLevel.drawImageActor.currentDrawState == DrawImageActor.DrawState.Coloring)
         {
-            currentLevel.pencilActor.pencilDrawProcessOfficer.StartColoring(touchPos);
+            currentLevel.pencilActor.pencilDrawProcessOfficer.StartColoring();
         }
     }
 
@@ -52,7 +52,7 @@ public class InputTouchOfficer : InputAbstractOfficer
         }
         else if (currentLevel.drawImageActor.currentDrawState == DrawImageActor.DrawState.Coloring)
         {
-            currentLevel.pencilActor.pencilDrawProcessOfficer.Coloring(touchPos);
+            currentLevel.pencilActor.pencilDrawProcessOfficer.Coloring();
         }
     }
 
@@ -69,7 +69,7 @@ public class InputTouchOfficer : InputAbstractOfficer
         }
         else if (currentLevel.drawImageActor.currentDrawState == DrawImageActor.DrawState.Coloring)
         {
-            currentLevel.pencilActor.pencilDrawProcessOfficer.StopColoring(touchPos);
+            currentLevel.pencilActor.pencilDrawProcessOfficer.StopColoring();
         }
     }
 }

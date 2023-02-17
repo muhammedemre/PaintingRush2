@@ -10,7 +10,7 @@ public class InputJoystickOfficer : InputAbstractOfficer
     
     private void Start()
     {
-        //getInputOfficer.InputJoystick += InputJoystickProcess;
+        getInputOfficer.InputJoystick += InputJoystickProcess;
     }
 
     void InputJoystickProcess(bool touchStart, bool touchMoved, bool touchEnded, Vector2 touchPos)
@@ -50,27 +50,29 @@ public class InputJoystickOfficer : InputAbstractOfficer
 
     void JoystickHandler(bool touchStart, bool touchMoved, bool touchEnded)
     {
-        
+        // Disable below code if no need to show the joystick UI
 
-        if (touchStart)
-        {
-            joyStick.GetComponent<JoystickActor>().ActivateTheJoystick(joystickAnchorPos);
-        }
-        else if (touchMoved)
-        {
-            Vector2 JoytstickWheelPosition = joystickAnchorPos + moveVector;
-            joyStick.GetComponent<JoystickActor>().UseTheJoystick(JoytstickWheelPosition);
-        }
-        else if (touchEnded)
-        {
-            joyStick.GetComponent<JoystickActor>().DeactivateTheJoystick();
-        }
+        //if (touchStart)
+        //{
+        //    joyStick.GetComponent<JoystickActor>().ActivateTheJoystick(joystickAnchorPos);
+        //}
+        //else if (touchMoved)
+        //{
+        //    Vector2 JoytstickWheelPosition = joystickAnchorPos + moveVector;
+        //    joyStick.GetComponent<JoystickActor>().UseTheJoystick(JoytstickWheelPosition);
+        //}
+        //else if (touchEnded)
+        //{
+        //    joyStick.GetComponent<JoystickActor>().DeactivateTheJoystick();
+        //}
         
     }
 
     void MoveThePlayer()
     {
-        Vector3 moveVector3 = new Vector3(moveVector.x, 0f, moveVector.y);
+        //Vector3 moveVector3 = new Vector3(moveVector.x, 0f, moveVector.y);
+        //Vector3 moveVector2 = new Vector3(moveVector.x, moveVector.y);
+        LevelManager.instance.levelCreateOfficer.currentLevel.GetComponent<LevelActor>().pencilActor.pencilMoveOfficer.MovePencil();
         //PlayerManager.instance.playerActor.playerMoveOfficer.MoveTheCharacter(moveVector3);
     }
 }

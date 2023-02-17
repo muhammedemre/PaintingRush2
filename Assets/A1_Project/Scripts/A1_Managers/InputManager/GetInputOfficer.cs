@@ -10,6 +10,14 @@ public class GetInputOfficer : SerializedMonoBehaviour
     
     private bool previousMouseState = false;
     [SerializeField] private bool isFixedUpdate = false;
+    [SerializeField] bool clickedOnUI = false;
+
+    public ActiveInputType activeInputType = ActiveInputType.TouchInput;
+
+    public enum ActiveInputType 
+    {
+        TouchInput, JoystickInput, SlideInput
+    }
     
     public delegate void InputTypeProcess(bool touchStart, bool touchMoved, bool touchEnded, Vector2 touchPos);
 
@@ -18,15 +26,15 @@ public class GetInputOfficer : SerializedMonoBehaviour
     //public event InputTypeProcess InputSwipe;
     public event InputTypeProcess InputSlide;
     public event InputTypeProcess InputTouch;
-    //public event InputTypeProcess InputJoystick;
+    public event InputTypeProcess InputJoystick;
 
     [SerializeField] int UILayer;
     
     private void Update()
     {
-        if (!isFixedUpdate && touchable && !CheckOnUIClick())
+        if (!isFixedUpdate && touchable)
         {
-            InputControl(); 
+            InputControl();
         }
     }
 
@@ -77,20 +85,21 @@ public class GetInputOfficer : SerializedMonoBehaviour
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
+            
             if (touch.phase == TouchPhase.Began)
             {
                 InputManagerInjector(true, false, false, touch.position);
             }
-            else if (touch.phase == TouchPhase.Moved)
+            else if (touch.phase == TouchPhase.Moved && !clickedOnUI)
             {
                 InputManagerInjector(false, true, false, touch.position);
             }
-            else if (touch.phase == TouchPhase.Stationary)
+            else if (touch.phase == TouchPhase.Stationary && !clickedOnUI)
             {
                 InputManagerInjector(false, true, false, touch.position);
             }
-            else if (touch.phase == TouchPhase.Ended)
-            {
+            else if (touch.phase == TouchPhase.Ended && !clickedOnUI)
+            {                
                 InputManagerInjector(false, false, true, touch.position);
             }
         }
@@ -98,7 +107,37 @@ public class GetInputOfficer : SerializedMonoBehaviour
 
     void InputManagerInjector(bool touchStart, bool touchMoved, bool touchEnded, Vector2 touchPos)
     {
-        InputTouch(touchStart, touchMoved, touchEnded, touchPos);
+        if (touchStart)
+        {
+            clickedOnUI = CheckOnUIClick();
+            print("clickedOnUI: " + clickedOnUI);
+            if (clickedOnUI)
+            {
+                return;
+            }
+        }
+        else if (touchEnded)
+        {
+            clickedOnUI = false;
+        }
+
+
+        switch (activeInputType)
+        {
+            case ActiveInputType.TouchInput:
+                InputTouch(touchStart, touchMoved, touchEnded, touchPos);
+                break;
+            case ActiveInputType.JoystickInput:
+                InputJoystick(touchStart, touchMoved, touchEnded, touchPos);
+                break;
+            case ActiveInputType.SlideInput:
+                InputSlide(touchStart, touchMoved, touchEnded, touchPos);
+                break;
+            default:
+                break;
+        }
+
+        
     }
 
     bool CheckOnUIClick()
@@ -122,11 +161,16 @@ public class GetInputOfficer : SerializedMonoBehaviour
         foreach (RaycastResult result in results)
         {
             if (result.gameObject.tag == "NoPaintUI")
-            {
+            {               
                 return true;
             }
         }
         return false;
+    }
+
+    public void ChangeInputType(ActiveInputType newInputType) 
+    {
+        activeInputType = newInputType;
     }
 
 }

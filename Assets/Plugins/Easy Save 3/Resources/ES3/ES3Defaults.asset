@@ -33,6 +33,7 @@ MonoBehaviour:
     - Assembly-CSharp
     - Assembly-CSharp-firstpass
     - Cinemachine
+    - GoogleMobileAds.Editor
     - Lofelt.NiceVibrations
     - Lofelt.NiceVibrations.Demo
     - Lofelt.NiceVibrations.Editor
